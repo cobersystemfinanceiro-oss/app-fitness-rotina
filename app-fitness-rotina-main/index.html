@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Fitness Rotina</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 380px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #555;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 8px;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    input, select {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .resumo {
+      text-align: left;
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="tela">
+    <h1>Bem-vindo ao App Fitness</h1>
+    <p>Seu aplicativo de treino, alimentação, água e sono.</p>
+    <button onclick="iniciar()">Começar</button>
+  </div>
+
+  <script>
+    let dadosUsuario = {
+      sexo: "",
+      idade: "",
+      peso: "",
+      altura: "",
+      objetivo: ""
+    };
+
+    function iniciar() {
+      document.getElementById("tela").innerHTML = `
+        <h2>1️⃣ Você é:</h2>
+        <button onclick="selecionarSexo('Homem')">Homem</button>
+        <button onclick="selecionarSexo('Mulher')">Mulher</button>
+      `;
+    }
+
+    function selecionarSexo(sexo) {
+      dadosUsuario.sexo = sexo;
+
+      document.getElementById("tela").innerHTML = `
+        <h2>2️⃣ Informe seus dados</h2>
+        <input type="number" id="idade" placeholder="Sua idade">
+        <input type="number" id="peso" placeholder="Seu peso (kg)">
+        <input type="number" id="altura" placeholder="Sua altura (cm)">
+        <button onclick="salvarDados()">Continuar</button>
+      `;
+    }
+
+    function salvarDados() {
+      const idade = document.getElementById("idade").value;
+      const peso = document.getElementById("peso").value;
+      const altura = document.getElementById("altura").value;
+
+      if (!idade || !peso || !altura) {
+        alert("Preencha todos os campos.");
+        return;
+      }
+
+      dadosUsuario.idade = idade;
+      dadosUsuario.peso = peso;
+      dadosUsuario.altura = altura;
+
+      document.getElementById("tela").innerHTML = `
+        <h2>3️⃣ Qual é seu objetivo?</h2>
+        <button onclick="selecionarObjetivo('Ganhar massa muscular')">Ganhar massa muscular</button>
+        <button onclick="selecionarObjetivo('Emagrecer')">Emagrecer</button>
+        <button onclick="selecionarObjetivo('Manter peso')">Manter peso</button>
+      `;
+    }
+
+    function selecionarObjetivo(objetivo) {
+      dadosUsuario.objetivo = objetivo;
+
+      document.getElementById("tela").innerHTML = `
+        <h2>Cadastro concluído ✅</h2>
+        <p>Esses são seus dados iniciais:</p>
+
+        <div class="resumo">
+          <p><strong>Sexo:</strong> ${dadosUsuario.sexo}</p>
+          <p><strong>Idade:</strong> ${dadosUsuario.idade} anos</p>
+          <p><strong>Peso:</strong> ${dadosUsuario.peso} kg</p>
+          <p><strong>Altura:</strong> ${dadosUsuario.altura} cm</p>
+          <p><strong>Objetivo:</strong> ${dadosUsuario.objetivo}</p>
+        </div>
+
+        <button onclick="iniciar()">Refazer cadastro</button>
+      `;
+    }
+  </script>
+
+</body>
+</html>
